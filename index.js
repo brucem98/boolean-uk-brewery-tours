@@ -31,11 +31,11 @@ function listenToSelectStateForm () {
     .then((states) => {
       console.log("Inside GET Fetch: ", states);
     
-      for (let i = 0; i < states.length; i++) {  
-        const breweries = states[i];
-        console.log("Inside breweries", breweries);
+      // for (let i = 0; i < states.length; i++) {  
+        const breweries = states;
+        console.log("Inside breweries", states);
         renderBreweriesList(breweries);    //breweries is an object, 
-      }
+      // }
     // Do something with states
   });
       
@@ -43,18 +43,6 @@ function listenToSelectStateForm () {
 }
 listenToSelectStateForm();
   
-
-
-// function renderBreweriesList() {
-
-
-//     const brewerieItem = breweriesList[i];
-//     console.log("Inside brewerieItem: ", brewerieItem);
-
-
-//   }
-
-// renderBreweriesList();
 
 // list-section render (2-part)
 
@@ -88,7 +76,7 @@ function renderSearchSection() {
 }
 renderSearchSection();
 
-function renderBreweriesList() {
+function renderBreweriesList(listOfBreweries) {
 
   const articleEl = document.createElement("article");
   mainEl.append(articleEl);
@@ -97,17 +85,19 @@ function renderBreweriesList() {
   ulEl.className = "breweries-list";
   articleEl.append(ulEl);
 
-  const liEl = document.createElement("li");
-  ulEl.append(liEl);
+  console.log("checking for error" , listOfBreweries, listOfBreweries.length);
+  for (let i = 0; i < listOfBreweries.length; i++){
+    const liEl = document.createElement("li");
+    ulEl.append(liEl);
 
-  const listh2El = document.createElement("h2");
-  listh2El.innerText = "Snow Belt Brew";
-  liEl.append(listh2El); 
+    const listh2El = document.createElement("h2");
+    listh2El.innerText = listOfBreweries[i].name;
+    liEl.append(listh2El); 
 
-  const div1El = document.createElement("div");
-  div1El.className = "type"
-  div1El.innerText = "micro";
-  liEl.append(div1El);
+    const div1El = document.createElement("div");
+    div1El.className = "type"
+    div1El.innerText = listOfBreweries[i].brewery_type;
+    liEl.append(div1El);
 
   const section1El = document.createElement("section");
   section1El.className = "address";
@@ -118,12 +108,12 @@ function renderBreweriesList() {
   section1El.append(h3El1);
 
   const p1El = document.createElement("p");
-  p1El.innerText = "9511 Kile Rd";
+  p1El.innerText = listOfBreweries[i].street;
   const p2El = document.createElement("p");
   section1El.append(p1El);
   section1El.append(p2El);
   const strongEl = document.createElement("strong");
-  strongEl.innerText = "Chardon, 44024";
+  strongEl.innerText = listOfBreweries[i].city + "," + listOfBreweries[i].postal_code;
   p2El.append(strongEl);
   
   const section2El = document.createElement("section");
@@ -135,7 +125,7 @@ function renderBreweriesList() {
   section2El.append(h3El2);
 
   const p3El = document.createElement("p");
-  p3El.innerText = "N/A";
+  p3El.innerText = listOfBreweries[i].phone;
   section2El.append(p3El);
 
   const section3El = document.createElement("section");
@@ -143,16 +133,20 @@ function renderBreweriesList() {
   liEl.append(section3El);
 
   const aEl = document.createElement("a");
-  aEl.href = "null";
+  aEl.href = listOfBreweries[i].website_url;
   aEl.target = "blank";
   aEl.innerText = "Visit Website";
   section3El.append(aEl);
-
+  }
 
   console.log ("inside article El", articleEl);
 
 }
-renderBreweriesList();
+
+
+
+
+
 
 // filter-section render 
 
